@@ -11,19 +11,93 @@
 <body>
 	<div id="app"></div>
 	<script type="text/babel">
-		var t = ['a','b'];
-		var l=t.map(function(i,z){
-				return i;
-			})
-		var Oselect = React.createClass({
+		var t = ['a','b','c','d','e'];
+
+		var Box = React.createClass({
 			render : function(){
-				return {l}	
+				var listArry=[];
+				function dg(da){
+					listArry.push(<List data={da}></List>)
+					if(da[0]['data'].length>0){
+						
+						dg(da[0]['data'])
+					}
+				}
+				dg(this.props.data);
+				console.log(listArry)
+				return <div>{listArry}</div>;	
+			}
+		}),
+		List = React.createClass({
+			render : function(){
+				console.log(this.props.data)
+					var list = this.props.data.map(function(i,t){
+							return <li key = {t}>{i.value}</li>
+						})
+				return (
+					<ul>
+						{list}					
+					</ul>)
 			}
 		})
+		var arry = [
+			{
+				
+				value:'默认',
+				key:0,
+				data:[
+						{
+							value:'默认',
+							key:1,
+							data:[
+								{
+									value:'默认',
+									key:2,
+									data:[]
+								}	
+							]
+						}
+					]
+			},
+			{
+				
+				value:'山西',
+				key:0,
+				data:[
+						{
+							value:'大同',
+							key:0,
+							data:[
+								{
+									value:'大同县',
+									key:0
+								},
+								{
+									value:'浑源县',
+									key:0
+								}	
+							]
+						},
+						{
+							value:'太原',
+							key:0,
+							data:[
+								{
+									value:'乔家大院',
+									key:0
+								},
+								{
+									value:'天龙山石窟',
+									key:0
+								}	
+							]
+						}
+				]
+			}
 
+		]
 
-
-		ReactDOM.render(<Oselect></Oselect>,document.getElementById('app'))
+		ReactDOM.render(<Box data={arry}></Box>,document.getElementById('app'))
 	</script>
 </body>
 </html>

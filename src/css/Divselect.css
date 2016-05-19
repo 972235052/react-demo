@@ -1,0 +1,253 @@
+
+.fe-dpl-select .fe-dpl-icon.i-arrow-down:before{
+    content: "\0020";
+    border:5px solid #fff;
+    height:0px;
+    width:0px;
+    position: absolute;
+    top:5px;
+    right:4px;
+    border-top-color:#ccc;
+}
+.fe-dpl-select .fe-dpl-input{
+    font-family: inherit;
+    border: 1px solid #e8e8e8;
+    color: #333;
+    font-size: 14px;
+    background: white;
+    line-height: 19px;
+    box-sizing: border-box;
+    height: 35px;
+    width: 15em;
+    vertical-align: middle;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 7px\9;
+}
+.fe-dpl-select {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    min-width: 120px;
+    height: 35px;
+}
+.fe-dpl-select > select {
+    visibility: hidden;
+}
+.fe-dpl-select > .inputWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 35px;
+}
+.fe-dpl-select > .inputWrapper > input {
+    padding-right: 30px;
+    width: 100%;
+}
+.fe-dpl-select > .inputWrapper > span {
+    float: left;
+}
+.fe-dpl-select > .inputWrapper > .fe-dpl-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    font-size: 18px;
+    line-height: 1;
+    margin-top: -10px;
+    color: #999999;
+}
+.fe-dpl-select > .multipleWrapper {
+    box-sizing: border-box;
+    z-index: 1;
+    border: 1px solid #e8e8e8;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: white;
+    line-height: 33px;
+}
+.fe-dpl-select > .multipleWrapper > span {
+    margin-left: 10px;
+    margin-right: 10px;
+    line-height: 1;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 7em;
+    display: inline-block;
+    padding-right: 15px;
+    vertical-align: middle;
+}
+.fe-dpl-select > .multipleWrapper > span > i {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #eeeeee;
+    color: #999999;
+    text-align: center;
+    margin-left: 3px;
+    display: none;
+}
+.fe-dpl-select > .multipleWrapper > span > i:hover {
+    background: #007cff;
+    cursor: pointer;
+    color: white;
+}
+.fe-dpl-select > .multipleWrapper > .refly-dpl-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    font-size: 18px;
+    line-height: 1;
+    margin-top: -10px;
+    color: #999999;
+}
+.fe-dpl-select.open > .inputWrapper > input {
+    border-color: #027cff;
+}
+.fe-dpl-select.open > .inputWrapper > .refly-dpl-icon {
+    color: #027cff;
+}
+.fe-dpl-select.open > .multipleWrapper {
+    border-color: #027cff;
+}
+.fe-dpl-select.open > .multipleWrapper > .refly-dpl-icon {
+    color: #027cff;
+}
+.fe-dpl-select.open > .multipleWrapper > span > i {
+    display: block;
+}
+.fe-dpl-select.error > .inputWrapper > input {
+    border-color: #ff7300;
+}
+.fe-dpl-select.error > .inputWrapper > .refly-dpl-icon {
+    color: #ff7300;
+}
+.fe-dpl-select.error > .multipleWrapper {
+    border-color: #ff7300;
+}
+.fe-dpl-select.error > .multipleWrapper > .refly-dpl-icon {
+    color: #ff7300;
+}
+.fe-dpl-select.disabled > .inputWrapper > input {
+    background: #f2f2f2;
+}
+.fe-dpl-select.disabled > .multipleWrapper {
+    background: #f2f2f2;
+}
+.fe-dpl-select.disabled > .multipleWrapper .i-cross {
+    display: none;
+}
+.fe-dpl-select > .listAndActions {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    top: 100%;
+    margin-top: -1px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #027cff;
+    background: white;
+}
+.fe-dpl-select > .listAndActions > ol {
+    max-height: 350px;
+    overflow: auto;
+}
+.fe-dpl-select > .listAndActions > ol > li {
+    cursor: pointer;
+    box-sizing: border-box;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 10px;
+    margin: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.fe-dpl-select > .listAndActions > ol > li.selected {
+    background: #027cff;
+    color: white;
+    cursor: default;
+}
+.fe-dpl-select > .listAndActions > ol > li.disabled {
+    color: #999;
+}
+.fe-dpl-select > .listAndActions > ol > li > label {
+    display: inline-block;
+    width: 100%;
+}
+.fe-dpl-select > .listAndActions > ol > li .refly-dpl-checkbox {
+    margin-right: 5px;
+}
+.fe-dpl-select > .listAndActions > ol.single > li:hover {
+    background: #027cff;
+    color: white;
+}
+.fe-dpl-select > .listAndActions > .actions {
+    border-top: 1px solid #e8e8e8;
+    padding: 7px 10px 8px;
+    text-align: right;
+    line-height: 25px;
+}
+.fe-dpl-select > .listAndActions > .actions > button {
+    margin-left: 5px;
+}
+.fe-dpl-select.open > .listAndActions {
+    display: block;
+}
+.fe-dpl-select.small {
+    height: 30px;
+}
+.fe-dpl-select.small > .inputWrapper {
+    height: 30px;
+}
+.fe-dpl-select.small > .inputWrapper > input {
+    height: 30px;
+    font-size: 12px;
+}
+.fe-dpl-select.small > .inputWrapper > .refly-dpl-icon {
+    font-size: 16px;
+    margin-top: -8px;
+}
+.fe-dpl-select.small > .multipleWrapper {
+    height: 30px;
+    line-height: 28px;
+}
+.fe-dpl-select.small > .multipleWrapper > .refly-dpl-icon {
+    font-size: 16px;
+    margin-top: -8px;
+}
+.fe-dpl-select.small ol > li {
+    height: 30px;
+    line-height: 30px;
+}
+.fe-dpl-select.smaller {
+    height: 25px;
+}
+.fe-dpl-select.smaller > .inputWrapper {
+    height: 25px;
+}
+.fe-dpl-select.smaller > .inputWrapper > input {
+    height: 25px;
+    font-size: 12px;
+}
+.fe-dpl-select.smaller > .inputWrapper > .refly-dpl-icon {
+    font-size: 12px;
+    margin-top: -6px;
+}
+.fe-dpl-select.smaller > .multipleWrapper {
+    height: 25px;
+    line-height: 23px;
+}
+.fe-dpl-select.smaller > .multipleWrapper > .refly-dpl-icon {
+    font-size: 12px;
+    margin-top: -6px;
+}
+.fe-dpl-select.smaller ol > li {
+    height: 25px;
+    line-height: 25px;
+}
