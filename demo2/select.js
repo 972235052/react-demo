@@ -1,56 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8" />
-	<title>react</title>
-	<script src="../src/js/react-15.0.2.js"></script>
-	<script src="../src/js/react-dom-15.0.2.js"></script>
-	<script src="../src/js/browser.min.js"></script>
-	<link rel="stylesheet" href="../src/css/reset.css">
-	<link rel="stylesheet" href="../src/css/Divselect.css">
-</head>
-<body>
-	<div id="app"></div>
-	<script src="select.js" type="text/babel"></script>
-	<script type="text/babel">
-		var arry = {
-					value:'山西',
-					key:0,
-					data:[
-							{
-								value:'大同',
-								key:0,
-								data:[
-									{
-										value:'大同县',
-										key:0
-									},
-									{
-										value:'浑源县',
-										key:0
-									}	
-								]
-							},
-							{
-								value:'太原',
-								key:0,
-								data:[
-									{
-										value:'乔家大院',
-										key:0
-									},
-									{
-										value:'天龙山石窟',
-										key:0
-									}	
-								]
-							}
-					]
-				};
-
-
-		
-        var Divselect = React.createClass({
+var Divselect = React.createClass({
 		getInitialState:function(){
 			return {
 				active:false,
@@ -97,8 +45,3 @@
 			return (<li onClick={this.zClick}>{this.props.data.value}</li>)
 		}
 	});
-		ReactDOM.render(<Divselect data={arry['data']}></Divselect>,document.getElementById('app'))
-	</script>
-
-</body>
-</html>
