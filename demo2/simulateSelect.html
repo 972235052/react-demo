@@ -11,7 +11,24 @@
 </head>
 <body>
 	<div id="app"></div>
-
+	<select name="" id="">
+		<option value="1">1</option>
+		<option value="1">1</option>
+		<option value="1">1</option>
+		<option value="1">1</option>
+	</select>
+	<select name="" id="">
+		<option value="1">1</option>
+		<option value="1">1</option>
+		<option value="1">1</option>
+		<option value="1">1</option>
+	</select>
+	<select name="" id="">
+		<option value="1">1</option>
+		<option value="1">1</option>
+		<option value="1">1</option>
+		<option value="1">1</option>
+	</select>
 	<script type="text/babel">
 		var arry = [
 			{
@@ -73,26 +90,34 @@
 
 	var Divselect = React.createClass({
 		getInitialState:function(){
-			var _value = this.props.index;
-			var dd=this.props.data[_value].value
+			
+			
 			return {
 				active:false,
-				value:dd
+				value:this.props.data[this.props.option].value
 			}
 		},
 		getClick:function(ev){
+
 			this.state.active ? this.setState({active:false}) :  this.setState({active:true});
 		},
 		handelClick:function(value,index){
+				console.log('没有点击')
 			this.props.cl(this.props.index,index);
 			this.setState({value:value})
+		},
+		Blur:function(ev){
+			var that = this;
+			setTimeout(function(){ that.setState({active:false}); console.log(111)},0);
+			//alert(1)
+			 
 		},
 		render:function(){
 			var act = this.state.active ? 'fe-dpl-select open' : 'fe-dpl-select',
 				_value = this.props.index;
-			return(<div className={act} ref="select" onClick={this.getClick}>
+			return(<div className={act} ref="select" onClick={this.getClick} >
 						<div className="inputWrapper">
-							<input type="text"  className="fe-dpl-input" placeholder="默认" value={this.props.data[_value].value} readonly="readonly" />
+							<input type="text"  className="fe-dpl-input" onBlur={this.Blur} placeholder="默认" value={this.props.data[this.props.option].value} readOnly ="readOnly " />
 							<i className="fe-dpl-icon i-arrow-down"></i>
 						</div>
 
@@ -161,7 +186,7 @@
 
 						data = data[_that.state.selectVlue[j]]['data'];
 					}
-				return (<Divselect data={data} key={i} index={i} cl={_that.handelClick}></Divselect>)
+				return (<Divselect data={data} key={i} option={_that.state.selectVlue[i]} index={i} cl={_that.handelClick}></Divselect>)
 			})
 			return (<div>{multistage}</div>);
 		}
