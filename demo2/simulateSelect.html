@@ -11,64 +11,88 @@
 </head>
 <body>
 	<div id="app"></div>
-	<script src="select.js" type="text/babel"></script>
+
 	<script type="text/babel">
-		var arry = {
-					value:'山西',
-					key:0,
-					data:[
+		var arry = [
+			{
+
+				value:'默认',
+				key:0,
+				data:[
+					{
+						value:'默认',
+						key:0,
+						data:[
 							{
-								value:'大同',
+								value:'默认',
 								key:0,
-								data:[
-									{
-										value:'大同县',
-										key:0
-									},
-									{
-										value:'浑源县',
-										key:0
-									}	
-								]
+								data:[]
+							}
+						]
+					}
+				]
+			},
+			{
+
+				value:'山西',
+				key:1,
+				data:[
+					{
+						value:'大同',
+						key:0,
+						data:[
+							{
+								value:'大同县',
+								key:0
 							},
 							{
-								value:'太原',
-								key:0,
-								data:[
-									{
-										value:'乔家大院',
-										key:0
-									},
-									{
-										value:'天龙山石窟',
-										key:0
-									}	
-								]
+								value:'浑源县',
+								key:1
 							}
-					]
-				};
+						]
+					},
+					{
+						value:'太原',
+						key:1,
+						data:[
+							{
+								value:'乔家大院',
+								key:0
+							},
+							{
+								value:'天龙山石窟',
+								key:1
+							}
+						]
+					}
+				]
+			}
+
+		]
 
 
-		
-        var Divselect = React.createClass({
+	var Divselect = React.createClass({
 		getInitialState:function(){
+			var _value = this.props.index;
+			var dd=this.props.data[_value].value
 			return {
 				active:false,
-				_value:'默认'
+				value:dd
 			}
 		},
 		getClick:function(ev){
 			this.state.active ? this.setState({active:false}) :  this.setState({active:true});
-
 		},
-		handelClick:function(value){
-			this.setState({_value:value})
+		handelClick:function(value,index){
+			this.props.cl(this.props.index,index);
+			this.setState({value:value})
 		},
 		render:function(){
-			var act = this.state.active ? 'fe-dpl-select open' : 'fe-dpl-select';
+			var act = this.state.active ? 'fe-dpl-select open' : 'fe-dpl-select',
+				_value = this.props.index;
 			return(<div className={act} ref="select" onClick={this.getClick}>
 						<div className="inputWrapper">
-							<input type="text"  className="fe-dpl-input" placeholder="默认" value={this.state._value} readonly="readonly" />
+							<input type="text"  className="fe-dpl-input" placeholder="默认" value={this.props.data[_value].value} readonly="readonly" />
 							<i className="fe-dpl-icon i-arrow-down"></i>
 						</div>
 
@@ -82,7 +106,7 @@
 		render:function(){
 			var handClick = this.props.cl;
 			 var LiArry = this.props.data.map(function(t,i){
-				 return (<Li key={i} data={t} cl={handClick} />)
+				 return (<Li key={i} data={t} cl={handClick} index={i} />)
 			 });
 			return (<ol>
 						{LiArry}
@@ -91,13 +115,64 @@
 	}),
 	Li = React.createClass({
 		zClick:function(ev){
-			this.props.cl(ev.target.innerHTML);
+			this.props.cl(ev.target.innerHTML,this.props.index);
 		},
 		render : function(){
 			return (<li onClick={this.zClick}>{this.props.data.value}</li>)
 		}
 	});
-		ReactDOM.render(<Divselect data={arry['data']}></Divselect>,document.getElementById('app'))
+
+
+
+	var Linkage = React.createClass({
+		getInitialState : function(){
+			var _selectValue = [],
+				_data = this.props.data;
+
+			function searchIndex(da){
+				_selectValue.push(0);
+				if(da[0]['data'].length>0){
+					searchIndex(da[0]['data'])
+				}
+			}
+			searchIndex(_data);
+			return {
+				selectVlue:_selectValue
+			}
+		},
+		handelClick:function(index,wave){
+			var d = [];
+				for(var i=0; i<this.state.selectVlue.length; i++){
+					if(i<index){
+						d.push(this.state.selectVlue[i])
+					}else if(i==index){
+						d.push(wave)
+					}else{
+						d.push(0)
+					}
+				}
+			this.setState({selectVlue:d})
+		},
+		render : function(){
+			var _that = this,
+				multistage = this.state.selectVlue.map(function(t,i){
+					var data = _that.props.data;
+					for(var j=0; j<i; j++){
+
+						data = data[_that.state.selectVlue[j]]['data'];
+					}
+				return (<Divselect data={data} key={i} index={i} cl={_that.handelClick}></Divselect>)
+			})
+			return (<div>{multistage}</div>);
+		}
+	})
+
+	ReactDOM.render(<Linkage data={arry}></Linkage>,document.getElementById('app'));
+
+	//	ReactDOM.render(<Divselect data={arry[0]['data']}></Divselect>,document.getElementById('app'))
+	//	ReactDOM.render(<Divselect data={arry[0]['data'][0]['data']}></Divselect>,document.getElementById('app'))
+
+
 	</script>
 
 </body>
