@@ -5,12 +5,14 @@
 	<title>react</title>
 	<script src="../src/js/react-15.0.2.js"></script>
 	<script src="../src/js/react-dom-15.0.2.js"></script>
+	<script src="http://static.yilianhao.com/common/lib/jquery.min.js"></script>
 	<script src="../src/js/browser.min.js"></script>
 	<link rel="stylesheet" href="../src/css/reset.css">
 	<link rel="stylesheet" href="../src/css/Divselect.css">
 </head>
 <body>
 	<div id="app"></div>
+	<div id="app1"></div>
 	
 	<script type="text/babel">
 		var arry = [
@@ -73,34 +75,35 @@
 
 	var Divselect = React.createClass({
 		getInitialState:function(){
-			
-			
+			var that=this;
+			function cl(obj){
+				that.documenClick(obj);
+			}
+			$(document).click(function(ev){
+				cl($(ev.target).parents('.fe-dpl-select').get(0))
+			})
 			return {
 				active:false,
 				value:this.props.data[this.props.option].value
 			}
 		},
-		getClick:function(ev){
-
-			this.state.active ? this.setState({active:false}) :  this.setState({active:true});
-		},
 		handelClick:function(value,index){
-				
 			this.props.cl(this.props.index,index);
 			this.setState({value:value})
 		},
-		Blur:function(ev){
-			var that = this;
-			setTimeout(function(){ that.setState({active:false});},200);
-			//alert(1)
-			 
+		documenClick:function(obj){
+			if(this.refs.select==obj){
+				this.state.active ? this.setState({active:false}) :  this.setState({active:true})	
+			}else{
+				this.setState({active:false})
+			}
 		},
 		render:function(){
 			var act = this.state.active ? 'fe-dpl-select open' : 'fe-dpl-select',
 				_value = this.props.index;
 			return(<div className={act} ref="select" onClick={this.getClick} >
 						<div className="inputWrapper">
-							<input type="text"  className="fe-dpl-input" onBlur={this.Blur} placeholder="默认" value={this.props.data[this.props.option].value} readOnly ="readOnly " />
+							<input type="text"  className="fe-dpl-input"  placeholder="默认" value={this.props.data[this.props.option].value} readOnly ="readOnly " />
 							<i className="fe-dpl-icon i-arrow-down"></i>
 						</div>
 
@@ -132,53 +135,54 @@
 
 
 
+
+
+		//多级下拉
 	var Linkage = React.createClass({
-		getInitialState : function(){
-			var _selectValue = [],
-				_data = this.props.data;
-
-			function searchIndex(da){
-				_selectValue.push(0);
-				if(da[0]['data'].length>0){
-					searchIndex(da[0]['data'])
-				}
-			}
-			searchIndex(_data);
-			return {
-				selectVlue:_selectValue
-			}
-		},
-		handelClick:function(index,wave){
-			var d = [];
-				for(var i=0; i<this.state.selectVlue.length; i++){
-					if(i<index){
-						d.push(this.state.selectVlue[i])
-					}else if(i==index){
-						d.push(wave)
-					}else{
-						d.push(0)
+			getInitialState : function(){
+				var _selectValue = [],
+					_data = this.props.data;				
+				function searchIndex(da){
+					_selectValue.push(0);
+					if(da[0]['data'].length>0){
+						searchIndex(da[0]['data'])
 					}
 				}
-			this.setState({selectVlue:d})
-		},
-		render : function(){
-			var _that = this,
-				multistage = this.state.selectVlue.map(function(t,i){
-					var data = _that.props.data;
-					for(var j=0; j<i; j++){
-
-						data = data[_that.state.selectVlue[j]]['data'];
+				searchIndex(_data);
+				return {
+					selectVlue:_selectValue
+				}
+			},
+			handelClick:function(index,wave){
+				var d = [];
+					for(var i=0; i<this.state.selectVlue.length; i++){
+						if(i<index){
+							d.push(this.state.selectVlue[i])
+						}else if(i==index){
+							d.push(wave)
+						}else{
+							d.push(0)
+						}
 					}
-				return (<Divselect data={data} key={i} option={_that.state.selectVlue[i]} index={i} cl={_that.handelClick}></Divselect>)
-			})
-			return (<div>{multistage}</div>);
-		}
-	})
+				this.setState({selectVlue:d})
+			},
+			render : function(){
+				var _that = this,
+					multistage = this.state.selectVlue.map(function(t,i){
+						var data = _that.props.data;
+						for(var j=0; j<i; j++){
+
+							data = data[_that.state.selectVlue[j]]['data'];
+						}
+					return (<Divselect data={data} key={i} option={_that.state.selectVlue[i]} index={i} cl={_that.handelClick}></Divselect>)
+				})
+				return (<div>{multistage}</div>);
+			}
+		})
 
 	ReactDOM.render(<Linkage data={arry}></Linkage>,document.getElementById('app'));
 
-
-
+	
 
 	</script>
 
